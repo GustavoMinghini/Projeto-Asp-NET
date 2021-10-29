@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProEventos.API.Models;
 
 namespace Proeventos.API.Controllers
 {
@@ -11,28 +12,51 @@ namespace Proeventos.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-    
+
 
 
 
         public EventoController(ILogger<EventoController> logger)
         {
-           
+
         }
 
         [HttpGet]
-        public string Get()
+        public List<Evento> Get()
         {
-            return "Value";
+            return new List<Evento>()
+            {
+                new Evento()
+                {
+                    EventoId = 1,
+                    Local = "Chacara",
+                    DataEvento = "11/12/2021",
+                    Tema = "Churrasco",
+                    QtdPessoas = 10,
+                    Lote = "A1",
+                    ImageURL = "../teste.img"
+                },
+
+                 new Evento()
+                {
+                    EventoId = 2,
+                    Local = "Chacara2",
+                    DataEvento = DateTime.Now.AddDays(2).ToString(),
+                    Tema = "Natal",
+                    QtdPessoas = 20,
+                    Lote = "A3",
+                    ImageURL = "../teste.img"
+                }
+            };
         }
-        
+
         [HttpPost]
         public string Post()
         {
             return "cuzao do caramba";
         }
 
-         [HttpPut("{id}")]
+        [HttpPut("{id}")]
         public string Put(int id)
         {
             return $"agora tem o metodo put id= {id}";
