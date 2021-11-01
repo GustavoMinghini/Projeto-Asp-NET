@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace ProEventos.API.Models
 {
     public class Evento
@@ -10,4 +12,6 @@ namespace ProEventos.API.Models
         public string DataEvento {get; set;}
         public string ImageURL {get; set;}
     }
+
+    
 }

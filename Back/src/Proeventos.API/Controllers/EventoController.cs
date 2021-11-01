@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProEventos.API.Data;
 using ProEventos.API.Models;
 
 namespace Proeventos.API.Controllers
@@ -15,39 +16,17 @@ namespace Proeventos.API.Controllers
 
 
 
+        private readonly DataContext _context;
 
-        public EventoController(ILogger<EventoController> logger)
+        public EventoController(DataContext context)
         {
+            _context = context;
 
         }
 
-        [HttpGet]
-        public List<Evento> Get()
+        [HttpGet]        public IEnumerable<Evento> Get()
         {
-            return new List<Evento>()
-            {
-                new Evento()
-                {
-                    EventoId = 1,
-                    Local = "Chacara",
-                    DataEvento = "11/12/2021",
-                    Tema = "Churrasco",
-                    QtdPessoas = 10,
-                    Lote = "A1",
-                    ImageURL = "../teste.img"
-                },
-
-                 new Evento()
-                {
-                    EventoId = 2,
-                    Local = "Chacara2",
-                    DataEvento = DateTime.Now.AddDays(2).ToString(),
-                    Tema = "Natal",
-                    QtdPessoas = 20,
-                    Lote = "A3",
-                    ImageURL = "../teste.img"
-                }
-            };
+           return _context.Eventos;
         }
 
         [HttpPost]
@@ -57,9 +36,11 @@ namespace Proeventos.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public string Put(int id)
+        public Evento GetById(int id)
         {
-            return $"agora tem o metodo put id= {id}";
+            return _context.Eventos.FirstOrDefault(
+                Evento => Evento.EventoId ==id
+            );
         }
 
         [HttpPut("{id}")]
